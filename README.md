@@ -4,7 +4,7 @@ This repostory contains codes to find out 'classes' of essential modalities of g
 
 ## 01_pre_processing
 Associated files are downloaded from DepMap project and preprocessed.
-- [prep.r](prep.r) : set up subdirectories under `data_dir`, `rda_dir`, `plot_dir`, `src_dir`.
+- [prep.r](01_pre_processing/prep.r) : set up subdirectories under `data_dir`, `rda_dir`, `plot_dir`, `src_dir`.
 - [preprocessing_19q3.r](01_pre_processing/preprocessing_19q3.r) : preprocess the data for further analysis.
 
 ## 02_compute_perturbation_score
