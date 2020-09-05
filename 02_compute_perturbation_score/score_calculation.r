@@ -55,7 +55,7 @@ if(0){
 
 contribs <- c(seq(0,1,.2)) # 0 => shRNA only, 1 => CRISPR only
 
-## combine scores using various mixing ratios (CRIPSR:shRNA) ranging from 0 to 1
+## combine scores using various mixing ratios (CRIPSR:shRNA) ran ging from 0 to 1
 for(c1 in contribs){
 	ctrb <- c(c1,1-c1)
 
@@ -72,7 +72,6 @@ for(c1 in contribs){
 	}
 
 	setwd(rda_dir);setwd(paste0("r",c1))
-	# saveRDS(scores,file="scores_15847g_423c_101119.rds")
 	saveRDS(scores,file=paste0("scores_15847g_423c.rds"))
 }
 
