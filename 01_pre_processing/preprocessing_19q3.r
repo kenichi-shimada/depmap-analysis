@@ -2,7 +2,7 @@
 cells <- read.csv("https://ndownloader.figshare.com/files/16757723",stringsAsFactors=F)
 
 
-## CRISPR efficacy
+## CRISPR dependency score (CERES)
 eff <- read.csv("https://ndownloader.figshare.com/files/16757666",stringsAsFactors=F)
 cells.ind <- eff[[1]]
 rownames(eff) <- cells.ind
@@ -20,7 +20,7 @@ eff <- t(eff)
 eids.eff <- rownames(eff)
 
 
-## shRNA efficacy
+## shRNA dependency score (DEMETER)
 dep <- read.csv("https://ndownloader.figshare.com/files/13515395",stringsAsFactors=F,row.names=1) ## 17212 x 712
 
 colnames(dep) <- sub("^X([0-9])","\\1",colnames(dep))
@@ -72,8 +72,8 @@ dep.1 <- dep[comm.eids,comm.cells] ## 15847 x 423
 
 ## save RData files
 setwd(rda_dir)
-saveRDS(cells,file="celllines_19q3.rds")	
-saveRDS(eff,file="gene_effect_19q3.rds")
-saveRDS(dep,file="gene_dep_19q3.rds")
-save(eff.1,dep.1,file="eff_dep_19q3.rda")
+saveRDS(cells,file="celllines_19q3.rds") # cell
+saveRDS(eff,file="gene_effect_19q3.rds") # CRISPR only
+saveRDS(dep,file="gene_dep_19q3.rds") # shRNA only
+save(eff.1,dep.1,file="eff_dep_19q3.rda") # CRISPR and shRNA, overlapping genes and cell lines
 
