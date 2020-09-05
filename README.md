@@ -3,11 +3,11 @@
 This repostory contains codes to find out 'classes' of essential modalities of genes from [the DepMap project data of the Broad Intitute](https://depmap.org/portal/download/).
 
 ## 01_pre_processing
-Associated files are downloaded from DepMap project and preprocessed.
+Download and preprocess associated files from DepMap project.
 - [preprocessing_19q3.r](01_pre_processing/preprocessing_19q3.r): preprocess the data for further analysis.
 
 ## 02_compute_perturbation_score
-Perturbation score is calculated from the CRISPR and shRNA efficacy.
+Impute and combine CRISPR and shRNA dependency scores.
 
 - [score_calculation.r](02_compute_perturbation_score/score_calculation.r)
 - [generate_fig2_figs1.r](02_compute_perturbation_score/generate_fig2_figs1.r)
