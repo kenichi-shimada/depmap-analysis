@@ -4,27 +4,21 @@ This repostory contains codes to find out 'classes' of essential modalities of g
 
 ## 01_pre_processing
 Download and preprocess associated files from DepMap project.
-- [preprocessing_19q3.r](01_pre_processing/preprocessing_19q3.r): preprocess the data for further analysis.
 
 ## 02_compute_perturbation_score
-Impute and combine CRISPR and shRNA dependency scores.
-
-- [score_calculation.r](02_compute_perturbation_score/score_calculation.r)
-- [generate_fig2_figs1.r](02_compute_perturbation_score/generate_fig2_figs1.r)
+Impute and combine CRISPR and shRNA dependency scores. (Updated: now the dependency scores are defined using multple mixing ratios of CRISPR and shRNA)
 
 ## 03_find_essential_genes
-Essential genes from the combined perturbation scores are identified.
+Computed two parameters, 'efficacy' and 'selectivity', and the essential genes from the combined perturbation scores are identified for each mixing ratio.
 
-- [find_ess_ts_genes.r](03_find_essential_genes/find_ess_ts_genes.r)
+## 04_adam
+Lineage-dependent and common gene essentiality are computed using ADaM2 algorithm.
 
-## 04_gsea
+## 05_gsea
 Pathways that are overrepresented among generally or selectively essential genes are identified using gene set enrichment analysis.
 
-- [msigdb_gsea_prep.r](04_gsea/msigdb_gsea_prep.r) : objects prep for GSEA
-- [comp_gsea_eff_sel.r](04_gsea/comp_gsea_eff_sel.r)
-- [comp_gsea_eff_sel.sh](04_gsea/comp_gsea_eff_sel.sh)
-- [plot_stepfun.r](04_gsea/plot_stepfun.r) 
-- [comp_gsea_eff_sel_assemble_1e7.r](04_gsea/comp_gsea_eff_sel_assemble_1e7.r)
+## 06_echodots
+ECHODOTS, a tSNE and DBSCAN-based cluster analysis, is performed among essential genes. See [05_echodots](06_echodots) for the details.
 
-## 05_echodots
-ECHODOTS, a tSNE and DBSCAN-based cluster analysis, is performed among essential genes. See [05_echodots](05_echodots) for the details.
+## 07_prep_for_shinyDepMap
+Files to be loaded in [shinyDepMap](https://labsyspharm.shinyapps.io/depmap) are computed.
