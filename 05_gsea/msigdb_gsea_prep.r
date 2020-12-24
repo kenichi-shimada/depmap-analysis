@@ -25,14 +25,16 @@ if(0){
 }else{
 	setwd(rda_dir)
 	load(file="msigdb.v7.0.rda") # msigdb
-	load(file="eff-sel.rda") # ef.sel,thres
 }
+
+setwd(rda_dir)
+load(file="eff-sel_6thres.rda") # coefs,ef.sels
 
 ##
 all.genes <- unique(unlist(msigdb)) ## 19842
 
 ##
-exp.genes <- rownames(ef.sel)
+exp.genes <- rownames(ef.sels[[1]][[1]])
 msigdb.ol <- lapply(msigdb,function(x)x[x %in% exp.genes])
 
 ##
@@ -44,7 +46,8 @@ table(sapply(names(msigdb.1),function(x)sub("_.+","",x)))
 
 ##
 used.genes <- unique(unlist(msigdb.1)) ## 14831
-df <- ef.sel[exp.genes %in% used.genes,] ## 14831 x 2
+dfs <- lapply(ef.sels,function(x)
+	lapply(x,function(y)y[exp.genes %in% used.genes,])) ## 14831 x 2
 
 setwd(rda_dir)
-save(df,msigdb.1,file="gsea_data.rda")
+save(dfs,msigdb.1,file="gsea_data_6thres.rda")

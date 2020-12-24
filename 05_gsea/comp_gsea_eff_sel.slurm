@@ -6,7 +6,7 @@
 #SBATCH -e fgsea_logs/e7_%j	        	# File to which STDERR will be written
 #SBATCH -o fgsea_logs/o7_%j	        	# File to which OUTPUT will be written
 #SBATCH --mem-per-cpu 16G				# 1e7 => 16G, 1e6 => 8G, 1e5 => 4G
-#SBATCH --array=1-2						# 1-2
+#SBATCH --array=1-72					# 1-12
 
-cd $DEPMAP_SRC_DIR
+cd "$DEPMAP_SRC_DIR"
 Rscript comp_gsea_eff_sel.r ${SLURM_ARRAY_TASK_ID}
