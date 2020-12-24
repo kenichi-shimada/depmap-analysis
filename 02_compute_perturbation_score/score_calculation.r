@@ -2,23 +2,26 @@ setwd(rda_dir)
 x <- load(file="eff_dep_19q3.rda")
 
 ##　combine CRISPR (eff.1) and shRNA (dep.1)
-ed <- cbind(e=as.vector(eff.1),d=as.vector(dep.1))
-i.e.wo.d <- which(!is.na(ed[,1]) & is.na(ed[,2]))
-i.d.wo.e <- which(is.na(ed[,1]) & !is.na(ed[,2]))
-i.w.ed <- which(!is.na(ed[,1]) & !is.na(ed[,2]))
-i.missing <- which(is.na(ed[,1]) & is.na(ed[,2]))
+ed <- data.frame(e=as.vector(eff.1),d=as.vector(dep.1))
+i.e.wo.d <- which(!is.na(ed$e) & is.na(ed$d))
+i.d.wo.e <- which(is.na(ed$e) & !is.na(ed$d))
+i.w.ed <- which(!is.na(ed$e) & !is.na(ed$d))
+i.missing <- which(is.na(ed$e) & is.na(ed$d))
 
-e.wo.d <- ed[i.e.wo.d,1] ## 1345642
-d.wo.e <- ed[i.d.wo.e,2] ## 19001
+e.wo.d <- ed$e[i.e.wo.d] ## 1345642
+d.wo.e <- ed$d[i.d.wo.e] ## 19001
 
 ed1 <- ed[i.w.ed,] ## 5334181
 
+setwd(rda_dir)
+saveRDS(ed1,"non-missing-ed.rds")
+
 ## impute missing values using loess()
 n <- 1000
-i.min.max <- i.w.ed[unique(c(head(order(ed1[,1],decreasing=T),n),
-		head(order(ed1[,1],decreasing=F),n),
-		head(order(ed1[,2],decreasing=T),n),
-		head(order(ed1[,2],decreasing=F),n)))] # 3933
+i.min.max <- i.w.ed[unique(c(head(order(ed1$e,decreasing=T),n),
+		head(order(ed1$e,decreasing=F),n),
+		head(order(ed1$d,decreasing=T),n),
+		head(order(ed1$d,decreasing=F),n)))] # 3933
 
 set.seed(123)
 row.i <- unique(c(sample(i.w.ed,1e6),i.min.max))
@@ -34,15 +37,15 @@ if(0){
 		pred.e <- predict(mod.2,newdata=d.wo.e)
 	}) ## 1,000,000 -> 8506 seconds (110x)
 
-	ed[i.e.wo.d,"d"] <- pred.d
-	ed[i.d.wo.e,"e"] <- pred.e
+	ed$d[i.e.wo.d] <- pred.d
+	ed$e[i.d.wo.e] <- pred.e
 
 	save(ed,file="dependency_score_imputed_101119.rda")	
 	# save(mod.1,pred.d,mod.2,pred.e,file=paste0("impute_missings_",ctrb,".rda"))
 }else{
 	setwd(rda_dir)
 	# load(file=paste0("impute_missings_",ctrb,".rda"))
-	x <-load("impute_missings_101119.rda")	
+	x <- load(ed,file="dependency_score_imputed_101119.rda")
 }
 
 if(0){
