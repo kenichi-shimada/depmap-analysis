@@ -9,4 +9,4 @@
 #SBATCH --array=1-6						# 1
 
 cd "$DEPMAP_SRC_DIR"
-Rscript find_ess_genes.r ${SLURM_ARRAY_TASK_ID}
+Rscript compute_coef.r ${SLURM_ARRAY_TASK_ID}
