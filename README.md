@@ -1,4 +1,4 @@
-# Analysis of DepMap
+# Analysis of DepMap for generating shinyDepMap
 
 This repostory contains codes to find out 'classes' of essential modalities of genes from [the DepMap project data of the Broad Intitute](https://depmap.org/portal/download/).
 (Note: this repo is updated in Dec 2020. Now the dependency scores are calculated with various mixing ratios between CRISPR and shRNA. For the details, see an upcoming publicaiton.)
