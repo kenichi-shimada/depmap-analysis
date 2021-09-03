@@ -34,6 +34,9 @@ for(sym in syms){
 	dev.off()
 }
 
+sp <- cor(ed1,method="spearman")
+pe <- cor(ed1,method="pearson")
+
 ## Fig. 2A
 s <- svd(ed1,1,0)
 f <- s$u %*% t(s$d) 
@@ -84,7 +87,7 @@ syms <- c("CCND1","RAN","EIF5B","FOXD4")
 gids <- unlist(mget(syms,org.Hs.egSYMBOL2EG))
 
 setwd(rda_dir)
-gid.scs <- lapply(1:6,function(k){
+gid.scs <- lapply(6:1,function(k){
 	c1 <- seq(0,1,.2)
 	sc <- readRDS(file=paste0("r",c1[k],"/scores_15847g_423c.rds"))
 	return(sc[gids,])
