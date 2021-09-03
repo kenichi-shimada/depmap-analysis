@@ -278,7 +278,9 @@ thres.eff,
 # coef,
 # graphs,
 
-eids.ess.all <- thres.eff.all <- mems.all <- dfs.com <- dfs.all <- list()
+eids.ess.all <- thres.eff.all <- mems.all <- dfs.com <- 
+    dfs.all <- coefs.all <- graphs.all <- p.scores.all <- list()
+
 for(mix.ratio in 1:6){
     setwd(rda_dir)
     file <- paste0("depmap_initial_19q3_local_run_v3_",mix.ratio,".rda")
@@ -290,6 +292,11 @@ for(mix.ratio in 1:6){
 
     thres.eff.all[[mix.ratio]] <- thres.eff
     eids.ess.all[[mix.ratio]] <- eids.ess
+
+    coefs.all[[mix.ratio]] <- coef
+    graphs.all[[mix.ratio]] <- graphs
+    p.scores.all[[mix.ratio]] <- p.scores
+
 }
 
 ## dfs
@@ -313,10 +320,24 @@ thres.eff <- lapply(thres.eff.all,function(x)round(x,3))
 ## eids.ess
 eids.ess <- eids.ess.all
 
+##
+graphs <- graphs.all
+coefs <- coefs.all
+p.scores <- p.scores.all
+
 ## 
 names(mems) <- names(eids.ess) <- names(thres.eff) <- names(dfs) <- 
-    rev(c("CRISPR","80:20","60:40 (default)","40:60","20:80","shRNA"))
-lapply(list(cl.info,dummy,cs,mems,eids.ess,thres.eff,dfs,com),function(x)format(object.size(x),units="MiB",standard="IEC"))
+    names(graphs) <- names(coefs) <- names(p.scores) <- 
+    mix.ratios <- c("shRNA","80:20","60:40","40:60 (default)","20:80","CRISPR")
+
+lapply(list(cl.info,dummy,cs,mems,eids.ess,thres.eff,dfs,com,graphs,coefs,p.scores),function(x)format(object.size(x),units="MiB",standard="IEC"))
+
+if(0){
+    setwd(rda_dir)
+    saveRDS(graphs,file="depmap_initial_19q3_v3_graphs.rda")
+    saveRDS(coefs,file="depmap_initial_19q3_v3_coefs.rda")
+    saveRDS(p.scores,file="depmap_initial_19q3_v3_p.scores.rda")
+}
 
 ##
 if(0){
@@ -326,6 +347,7 @@ if(0){
     setwd(rda_dir)
     x <- load("depmap_initial_19q3_v3.rda")
 }
+
 n1 <- names(dfs)
 n2 <- names(dfs[[1]])
 
@@ -375,7 +397,15 @@ if(0){
 
 ##
 if(0){
+    setwd(rda_dir)
     x <- load(file="depmap_initial_19q3_v3.rda")
+
+    nlayer <- 31
+    # all.scatter.plots <- readRDS("data/depmap_all_scatter_plots.rds")
+
+    # mix.ratios <- c("shRNA","80:20","60:40","40:60 (default)","20:80","CRISPR")
+    # names(thres.eff) <- names(eids.ess) <- mix.ratios
+
     # lapply(x,function(y)format(object.size(get(y)),units="MiB",standard="IEC"))
 
     # setwd("/n/groups/mitchison/Kenichi/projects/09 depmap/plots/19q3_1/adam2")
